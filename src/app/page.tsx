@@ -1,11 +1,19 @@
-import {  MessageDemo } from "@/components/message-component";
-import Image from "next/image";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-100  dark:bg-black">
-      <MessageDemo/>
-      <p className="text-xs"> raunak</p>
-    </div>
-  );
+export default async function Home() {
+  // Check session using Better Auth on the server
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  // Redirect to /dashboard if logged in, otherwise /login
+  if (session) {
+    redirect("/dashboard");
+  } 
+
+  return <div>
+    <h1> VItals landing page </h1>
+  </div>
 }
