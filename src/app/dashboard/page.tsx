@@ -17,10 +17,10 @@ export default async function DashboardPage() {
   });
 
   // Protect the route: if no session is active, redirect to login
-  if (!session) {
-    redirect("/login");
-  }
+  // if (!session) {
+  //   redirect("/login");
+  // }
 
   // Render the Dashboard Client wrapper with the session user's details
-  return <DashboardClient user={session.user} />;
+  return <DashboardClient user={{name: "",email: ""}} />;
 }
